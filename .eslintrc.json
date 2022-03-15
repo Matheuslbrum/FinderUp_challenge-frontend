@@ -59,6 +59,9 @@
           "checkContextTypes": true,
           "checkChildContextTypes": true
         }],
-        "no-case-declarations": "off"
+        "no-case-declarations": "off",
+        "react/function-component-definition": "off",
+        "arrow-body-style": "off",
+        "react/prop-types": "off"
       }
 }
