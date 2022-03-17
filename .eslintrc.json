@@ -62,6 +62,7 @@
         "no-case-declarations": "off",
         "react/function-component-definition": "off",
         "arrow-body-style": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "no-unneeded-ternary": "off"
       }
 }
