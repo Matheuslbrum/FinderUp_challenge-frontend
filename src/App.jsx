@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import ManagerPage from './pages/manager/managerPage';
+import { Routes, Route, Link } from 'react-router-dom';
+import RegisterPage from './pages/registerPage/registerPage';
+import InitialPage from './pages/initialPage/initialPage';
 
-function App() {
+const App = () => {
   return (
-    <ManagerPage />
+    <Routes>
+      <Route path="/" element={<InitialPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+    </Routes>
   );
-}
+};
 
 export default App;
