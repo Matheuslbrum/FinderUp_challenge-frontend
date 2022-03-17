@@ -2,9 +2,9 @@ import React, { Children, useEffect } from 'react';
 
 function Table(props) {
     const {
-        user,
+        profession,
         createdDate,
-        materialItem,
+        children,
     } = props;
 
     return (
@@ -18,7 +18,7 @@ function Table(props) {
             Quantidade
           </li>
           {
-           user === 'Baker'
+           profession === 'Baker'
            && (
            <li>
              Padeiro
@@ -26,7 +26,7 @@ function Table(props) {
             )
           }
           {
-            user === 'Stockist'
+            profession === 'Stockist'
            && (
            <li>
              Estoquista
@@ -43,7 +43,7 @@ function Table(props) {
           }
         </ul>
         <ul className="table-itens">
-          {materialItem}
+          {children}
         </ul>
       </div>
     );
