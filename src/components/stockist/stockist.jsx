@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
-import MaterialItem from '../../components/materialItem/materialItem';
+import MaterialItem from '../materialItem/materialItem';
 
-const StockistPage = () => {
+const Stockist = () => {
     const [state, setState] = useState({ name: '', user: '', quantity: '' });
 
     const handleInput = (event) => {
@@ -56,4 +56,4 @@ const StockistPage = () => {
       </div>
     );
 };
-export default StockistPage;
+export default Stockist;

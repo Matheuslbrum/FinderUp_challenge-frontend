@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
-import MaterialItem from '../../components/materialItem/materialItem';
-import Table from '../../components/table/table';
+import Baker from '../baker/baker';
+import MaterialItem from '../materialItem/materialItem';
+import Table from '../table/table';
 
-const BakerPage = (props) => {
+const Manager = (props) => {
   const [state, setState] = useState({});
   const [materials, setMaterials] = useState([]);
 
@@ -17,9 +18,8 @@ const BakerPage = (props) => {
 
     if (!value) {
       setState({});
+      setMaterials([]);
     }
-
-    console.log(state);
   };
 
   useEffect(() => {
@@ -27,41 +27,42 @@ const BakerPage = (props) => {
       params: {
         ...state,
       },
-    }).then((response) => {
-      setMaterials(response.data);
-      console.log(response);
-    }).catch((response, error) => console.log(response));
+    }).then(({ data }) => {
+      setMaterials(data);
+    }).catch((error) => console.log(error));
   }, [state]);
 
   return (
     <div>
-      <form>
-        <label htmlFor="name">
+      <form onChange={handleInput}>
+        <label htmlFor="user">
           <input
             type="text"
             onChange={handleInput}
-            name="name"
-            id="name"
+            name="user"
+            id="user"
           />
-          Digite o nome do Produto
+          Digite o nome do padeiro
         </label>
       </form>
       <Table
-        user="Stockist"
-        materialItem={
-        materials.map((material) => {
-          return (
+        profession="Baker"
+        createdDate
+      >
+        {
+          materials?.map((material) => (
             <MaterialItem
+              key={material.id}
               name={material.name}
               quantity={material.quantity}
               user={material.user_updater}
+              createdDate={material.created_date}
             />
-           );
-        })
+            ))
       }
-      />
+      </Table>
     </div>
   );
 };
 
-export default BakerPage;
+export default Manager;
