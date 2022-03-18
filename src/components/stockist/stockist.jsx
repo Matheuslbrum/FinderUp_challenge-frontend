@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import MaterialItem from '../materialItem/materialItem';
+import '../../styles/stockist.css';
 
-const Stockist = () => {
-    const [state, setState] = useState({ name: '', user: '', quantity: '' });
+const Stockist = (props) => {
+    const {
+      user,
+    } = props;
+
+    const [state, setState] = useState({ name: '', quantity: '' });
 
     const handleInput = (event) => {
         const {
@@ -11,12 +16,8 @@ const Stockist = () => {
           name,
         } = event.target;
 
-        setState((prevState) => ({ ...prevState, [name]: value }));
+        setState((prevState) => ({ ...prevState, [name]: value, user }));
       };
-
-      useEffect(() => {
-       console.log(state);
-      }, [state]);
 
       const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,31 +25,34 @@ const Stockist = () => {
         await api.post('rawMaterials', {
             ...state,
         }).then((response) => {
-            console.log(response);
+            alert(response);
           })
           .catch((error) => {
-            console.log(error);
+            alert(error);
           });
         };
 
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            onChange={handleInput}
-            name="name"
-          />
-          <input
-            type="number"
-            onChange={handleInput}
-            name="quantity"
-          />
-          <input
-            type="text"
-            onChange={handleInput}
-            name="user"
-          />
+      <div className="stockist">
+        <form onSubmit={handleSubmit} className="stockist_form">
+          <label htmlFor="name" className="stockist__label">
+            Digite o nome do produto:
+            <input
+              type="text"
+              onChange={handleInput}
+              name="name"
+              id="name"
+            />
+          </label>
+          <label htmlFor="quantity" className="stockist__label">
+            Escreva a quantidade:
+            <input
+              type="number"
+              onChange={handleInput}
+              name="quantity"
+              id="quantity"
+            />
+          </label>
           <input
             type="submit"
           />

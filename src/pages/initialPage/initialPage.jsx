@@ -4,17 +4,18 @@ import api from '../../services/api';
 import Stockist from '../../components/stockist/stockist';
 import Manager from '../../components/manager/manager';
 import Baker from '../../components/baker/baker';
+import '../../styles/initialPage.css';
 
 const InitialPage = () => {
     const stateDefault = { username: '', profession: '', email: '' };
     const history = useNavigate();
     const [state, setState] = useState(stateDefault);
     const [errorApi, setErrorApi] = useState();
+    const [isLogged, setIsLogged] = useState();
+    const [loggedUsername, setLoggedUsername] = useState('');
 
     const {
-        username,
-        profession,
-        email,
+      profession,
     } = state;
 
     const handleSubmit = async (event) => {
@@ -22,11 +23,11 @@ const InitialPage = () => {
 
        await api.post('login', {
            ...state,
-       }).then((response) => {
-           console.log(response);
+       }).then(({ data }) => {
+        setIsLogged(data);
+        alert(data.status);
          })
          .catch((error) => {
-           console.log(error);
            setErrorApi(error);
          });
       };
@@ -44,60 +45,61 @@ const InitialPage = () => {
         history('/register');
     };
 
-      useEffect(() => {
-       console.log(state);
-      }, [state]);
-
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username">
-            Digite seu nome:
-            <input
-              id="username"
-              type="text"
-              onChange={handleInput}
-              name="username"
-            />
-          </label>
-          <label htmlFor="email">
-            Digite seu email:
-            <input
-              id="email"
-              type="email"
-              onChange={handleInput}
-              name="email"
-            />
-          </label>
-          <label htmlFor="login">
-            Selecione sua profissão:
-            <select name="profession" id="login" onChange={handleInput}>
+      <div className="initialPage">
+        <div className="initialPage__forms-table">
+          <form onSubmit={handleSubmit} className="initialPage__form">
+            <label htmlFor="username" className="initialPage__label">
+              Digite seu nome:
+              <input
+                id="username"
+                type="text"
+                onChange={handleInput}
+                name="username"
+              />
+            </label>
+            <label htmlFor="email" className="initialPage__label">
+              Digite seu email:
+              <input
+                id="email"
+                type="email"
+                onChange={handleInput}
+                name="email"
+              />
+            </label>
+            <select name="profession" id="login" onChange={handleInput} className="initialPage__select">
               <option value="">Selecione uma profissão</option>
               <option value="Baker">Padeiro</option>
               <option value="Manager">Gerente</option>
               <option value="Stockist">Estoquista</option>
             </select>
-          </label>
-          <input
-            type="submit"
-          />
-        </form>
+            <input
+              type="submit"
+            />
+          </form>
+        </div>
         {
-            profession === 'Manager' && !errorApi
+            profession === 'Manager' && isLogged && !errorApi
             && (
-            <Manager />
+              <div className="profession_component">
+                <Manager />
+              </div>
             )
         }
         {
-            profession === 'Baker' && !errorApi
+            profession === 'Baker' && isLogged && !errorApi
             && (
-            <Baker />
+              <div className="profession_component">
+                <Baker user={loggedUsername} />
+              </div>
             )
         }
         {
-            profession === 'Stockist' && !errorApi
+            profession === 'Stockist' && isLogged && !errorApi
             && (
-            <Stockist />
+              <div className="profession_component">
+                <Stockist user={loggedUsername} />
+              </div>
             )
         }
         {
@@ -110,8 +112,9 @@ const InitialPage = () => {
           <button
             onClick={buttonClick}
             type="submit"
+            className="initialPage__button"
           >
-            Register
+            Registrar
           </button>
         </div>
       </div>

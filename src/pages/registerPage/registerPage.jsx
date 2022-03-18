@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
+import '../../styles/registerPage.css';
 
 const RegisterPage = () => {
     const stateDefault = { username: '', profession: '', email: '' };
@@ -12,14 +13,12 @@ const RegisterPage = () => {
 
        await api.post('register', {
            ...state,
-       }).then((response) => {
-           console.log(response);
+       }).then(({ data }) => {
+           alert(data);
          })
          .catch((error) => {
-           console.log(error);
+          alert(error);
          });
-
-      setState(stateDefault);
       };
 
     const handleInput = (event) => {
@@ -34,50 +33,50 @@ const RegisterPage = () => {
         history('/');
     };
 
-      useEffect(() => {
-       console.log(state);
-      }, [state]);
-
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username">
-            Digite seu nome
-            <input
-              id="username"
-              type="text"
-              onChange={handleInput}
-              name="username"
-            />
-          </label>
-          <label htmlFor="email">
-            Digite seu email
-            <input
-              id="email"
-              type="email"
-              onChange={handleInput}
-              name="email"
-            />
-          </label>
-          <label htmlFor="register">
-            <select name="profession" id="register" onChange={handleInput}>
-              <option value="">Selecione uma profissão</option>
-              <option value="Padeiro">Padeiro</option>
-              <option value="Gerente">Gerente</option>
-              <option value="Estoquista">Estoquista</option>
+      <div className="registerPage">
+        <div className="registerPage-conteiner">
+          <form onSubmit={handleSubmit} className="registerPage-inputsConteiner">
+            <label htmlFor="username" className="registerPage__label">
+              Digite seu nome
+              <input
+                id="username"
+                type="text"
+                onChange={handleInput}
+                name="username"
+                className="registerPage__input"
+              />
+            </label>
+            <label htmlFor="email" className="registerPage__label">
+              Digite seu email
+              <input
+                id="email"
+                type="email"
+                onChange={handleInput}
+                name="email"
+                className="registerPage__input"
+              />
+            </label>
+            <select name="profession" id="register" onChange={handleInput} className="registerPage__select">
+              <option value="" className="registerPage__option">Selecione uma profissão</option>
+              <option value="Baker" className="registerPage__option">Padeiro</option>
+              <option value="Manager" className="registerPage__option">Gerente</option>
+              <option value="Stockist" className="registerPage__option">Estoquista</option>
             </select>
-          </label>
-          <input
-            type="submit"
-          />
-        </form>
-        <div>
-          <button
-            onClick={buttonClick}
-            type="submit"
-          >
-            Página Inicial
-          </button>
+            <input
+              type="submit"
+              className="registerPage__button"
+            />
+          </form>
+          <div className="registerPage__contain-button">
+            <button
+              onClick={buttonClick}
+              type="submit"
+              className="registerPage__button init"
+            >
+              Página Inicial
+            </button>
+          </div>
         </div>
       </div>
     );

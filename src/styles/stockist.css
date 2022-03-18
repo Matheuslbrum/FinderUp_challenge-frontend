@@ -1,0 +1,11 @@
+.stockist_form{
+    margin: 40px 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.stockist__label{
+    margin-right: 10px;
+}

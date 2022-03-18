@@ -3,8 +3,9 @@ import api from '../../services/api';
 import Baker from '../baker/baker';
 import MaterialItem from '../materialItem/materialItem';
 import Table from '../table/table';
+import '../../styles/manager.css';
 
-const Manager = (props) => {
+const Manager = () => {
   const [state, setState] = useState({});
   const [materials, setMaterials] = useState([]);
 
@@ -29,20 +30,21 @@ const Manager = (props) => {
       },
     }).then(({ data }) => {
       setMaterials(data);
-    }).catch((error) => console.log(error));
+    }).catch((error) => alert(error));
   }, [state]);
 
   return (
-    <div>
-      <form onChange={handleInput}>
+    <div className="manager">
+      <form onChange={handleInput} className="manager_form">
         <label htmlFor="user">
+          Digite o nome do padeiro:
+
           <input
             type="text"
             onChange={handleInput}
             name="user"
             id="user"
           />
-          Digite o nome do padeiro
         </label>
       </form>
       <Table

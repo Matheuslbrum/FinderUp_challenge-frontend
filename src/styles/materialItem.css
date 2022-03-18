@@ -1,0 +1,8 @@
+.materialItem__li{
+    list-style-type: none;
+}
+.materialItem__rows{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}

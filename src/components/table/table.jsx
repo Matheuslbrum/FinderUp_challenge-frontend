@@ -1,4 +1,5 @@
 import React, { Children, useEffect } from 'react';
+import '../../styles/table.css';
 
 function Table(props) {
     const {
@@ -10,17 +11,17 @@ function Table(props) {
     return (
       <div className="table">
         <ul className="header-table">
-          <li>
+          <li className="table__item">
             Nome do produto
           </li>
 
-          <li>
+          <li className="table__item">
             Quantidade
           </li>
           {
            profession === 'Baker'
            && (
-           <li>
+           <li className="table__item">
              Padeiro
            </li>
             )
@@ -28,7 +29,7 @@ function Table(props) {
           {
             profession === 'Stockist'
            && (
-           <li>
+           <li className="table__item">
              Estoquista
            </li>
             )
@@ -36,7 +37,7 @@ function Table(props) {
           {
             createdDate
             && (
-            <li>
+            <li className="table__item">
               Data da Remoção
             </li>
             )
@@ -49,4 +50,4 @@ function Table(props) {
     );
 }
 
-export default React.memo(Table);
+export default Table;
